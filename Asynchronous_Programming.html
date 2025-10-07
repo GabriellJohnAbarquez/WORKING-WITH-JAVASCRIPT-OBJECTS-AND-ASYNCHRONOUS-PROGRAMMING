@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>II. ASYNCHRONOUS PROGRAMMING</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    section {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 25px;
+      background: #f9f9f9;
+    }
+    input, button {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      padding: 5px;
+    }
+    h3 {
+      color: #004aad;
+    }
+    p {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>II. ASYNCHRONOUS PROGRAMMING</h1>
+
+<!-- A -->
+<section>
+  <h3>A. Promise that rejects if input is empty and resolves greeting the user.</h3>
+  <input type="text" id="nameA" placeholder="Enter your name">
+  <button onclick="runA()">Run</button>
+  <p id="outputA"></p>
+</section>
+
+<!-- B -->
+<section>
+  <h3>B. Promise rejects if empty, resolves after 5 seconds greeting the user.</h3>
+  <input type="text" id="nameB" placeholder="Enter your name">
+  <button onclick="runB()">Run</button>
+  <p id="outputB"></p>
+</section>
+
+<!-- C -->
+<section>
+  <h3>C. Promise rejects if empty, resolves after 7 seconds greeting the user.</h3>
+  <input type="text" id="nameC" placeholder="Enter your name">
+  <button onclick="runC()">Run</button>
+  <p id="outputC"></p>
+</section>
+
+<!-- D -->
+<section>
+  <h3>D. Promise rejects if empty, resolves greeting the user in uppercase.</h3>
+  <input type="text" id="nameD" placeholder="Enter your name">
+  <button onclick="runD()">Run</button>
+  <p id="outputD"></p>
+</section>
+
+<!-- E -->
+<section>
+  <h3>E. Promise rejects if empty or less than 5 chars, resolves greeting in uppercase.</h3>
+  <input type="text" id="nameE" placeholder="Enter your name">
+  <button onclick="runE()">Run</button>
+  <p id="outputE"></p>
+</section>
+
+<!-- F -->
+<section>
+  <h3>F. Promise rejects if empty or less than 5 chars, resolves greeting in reversed format.</h3>
+  <input type="text" id="nameF" placeholder="Enter your name">
+  <button onclick="runF()">Run</button>
+  <p id="outputF"></p>
+</section>
+
+<!-- G -->
+<section>
+  <h3>G. Promise rejects if not an integer, resolves with squared number message.</h3>
+  <input type="text" id="numG" placeholder="Enter a number">
+  <button onclick="runG()">Run</button>
+  <p id="outputG"></p>
+</section>
+
+<!-- H -->
+<section>
+  <h3>H. Promise rejects if not an integer, resolves after 5 seconds with cubed number message.</h3>
+  <input type="text" id="numH" placeholder="Enter a number">
+  <button onclick="runH()">Run</button>
+  <p id="outputH"></p>
+</section>
+
+<!-- I -->
+<section>
+  <h3>I. Promise rejects if number not between 1–10. After 3 failures, no more chances.</h3>
+  <input type="text" id="numI" placeholder="Enter a number between 1–10">
+  <button onclick="runI()">Run</button>
+  <p id="outputI"></p>
+</section>
+
+<script>
+/* 
+A. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty, 
+   and resolves with the input, greeting the user with “good day, <name of user here>!” on the DOM
+*/
+function runA() {
+  const name = document.getElementById("nameA").value;
+  const output = document.getElementById("outputA");
+
+  new Promise((resolve, reject) => {
+    if (name === "") reject("Input is empty!");
+    else resolve(name);
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+B. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty, 
+   and resolves after 5 seconds with the input, greeting the user with “good day, <name of user here>!” on the DOM.
+*/
+function runB() {
+  const name = document.getElementById("nameB").value;
+  const output = document.getElementById("outputB");
+
+  new Promise((resolve, reject) => {
+    if (name === "") reject("Input is empty!");
+    else setTimeout(() => resolve(name), 5000);
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+C. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty, 
+   and resolves after 7 seconds with the input, greeting the user with “good day, <name of user here>!” on the DOM.
+*/
+function runC() {
+  const name = document.getElementById("nameC").value;
+  const output = document.getElementById("outputC");
+
+  new Promise((resolve, reject) => {
+    if (name === "") reject("Input is empty!");
+    else setTimeout(() => resolve(name), 7000);
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+D. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty, 
+   and resolves with the input being in uppercase format, 
+   greeting the user with “good day, <name of user here>!” on the DOM.
+*/
+function runD() {
+  const name = document.getElementById("nameD").value;
+  const output = document.getElementById("outputD");
+
+  new Promise((resolve, reject) => {
+    if (name === "") reject("Input is empty!");
+    else resolve(name.toUpperCase());
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+E. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty and is less than five characters, 
+   and resolves with the input being in uppercase format, 
+   greeting the user with “good day, <name of user here>!” on the DOM.
+*/
+function runE() {
+  const name = document.getElementById("nameE").value;
+  const output = document.getElementById("outputE");
+
+  new Promise((resolve, reject) => {
+    if (name === "" || name.length < 5) reject("Name must be at least 5 characters!");
+    else resolve(name.toUpperCase());
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+F. We first have an input field asking for the user’s name. 
+   Create a Promise that rejects if that input field is empty and is less than five characters, 
+   and resolves with the input being in reversed format, 
+   greeting the user with “good day, <name of user here>!” on the DOM.
+*/
+function runF() {
+  const name = document.getElementById("nameF").value;
+  const output = document.getElementById("outputF");
+
+  new Promise((resolve, reject) => {
+    if (name === "" || name.length < 5) reject("Name must be at least 5 characters!");
+    else resolve(name.split("").reverse().join(""));
+  })
+  .then(res => output.textContent = `Good day, ${res}!`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+G. We first have an input field asking the user to input a number. 
+   Create a Promise that rejects if the inputted value is not an integer 
+   and resolves with the integer input being squared, 
+   printing the string “<number inputted> is <squared number> when doubled ” on the DOM.
+*/
+function runG() {
+  const num = document.getElementById("numG").value;
+  const output = document.getElementById("outputG");
+
+  new Promise((resolve, reject) => {
+    const int = parseInt(num);
+    if (isNaN(int)) reject("Input is not an integer!");
+    else resolve(int ** 2);
+  })
+  .then(res => output.textContent = `${num} is ${res} when doubled.`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+H. We first have an input field asking the user to input a number. 
+   Create a Promise that rejects if the inputted value is not an integer 
+   and resolves after 5 seconds with the integer input being cubed, 
+   printing the string “<number inputted> is <cubed number> when cubed” on the DOM.
+*/
+function runH() {
+  const num = document.getElementById("numH").value;
+  const output = document.getElementById("outputH");
+
+  new Promise((resolve, reject) => {
+    const int = parseInt(num);
+    if (isNaN(int)) reject("Input is not an integer!");
+    else setTimeout(() => resolve(int ** 3), 5000);
+  })
+  .then(res => output.textContent = `${num} is ${res} when cubed.`)
+  .catch(err => output.textContent = err);
+}
+
+/* 
+I. We first have an input field asking the user to input a number. 
+   Create a Promise that rejects if the inputted value is not between 1 and 10 
+   and resolves by printing the string “Yes <number inputted> is between 1 and 10” on the DOM. 
+   If the user fails three times to give a number between 1 and 10, 
+   we’ll just print “You already failed three times, so no chances anymore”.
+*/
+let failCount = 0;
+function runI() {
+  const num = document.getElementById("numI").value;
+  const output = document.getElementById("outputI");
+
+  new Promise((resolve, reject) => {
+    const int = parseInt(num);
+    if (isNaN(int) || int < 1 || int > 10) reject("Number not between 1 and 10!");
+    else resolve(int);
+  })
+  .then(res => {
+    output.textContent = `Yes, ${res} is between 1 and 10!`;
+    failCount = 0;
+  })
+  .catch(err => {
+    failCount++;
+    if (failCount >= 3) output.textContent = "You already failed three times, so no chances anymore.";
+    else output.textContent = err + ` (Attempts: ${failCount}/3)`;
+  });
+}
+</script>
+
+</body>
+</html>
